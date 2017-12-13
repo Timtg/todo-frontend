@@ -16,11 +16,8 @@ Install npm, nps, aurelia-cli globally
 `npm install nps -g`
 
 ## Prep project
-Using Visual Studio Code, open the Terminal window and run
+Open the Terminal window and run
 `npm install`
 
 ## Run project
 `au run --watch`
-
-## To do list
-Get e2e and unit tests running

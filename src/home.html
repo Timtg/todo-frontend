@@ -1,0 +1,30 @@
+<template>
+	<div class="container">
+		<h2 align="center">Todo App</h2>
+		<div class="col-lg-offset-3 col-lg-4">
+			<table class="table table-hover">
+				<thead>
+				<tr>
+					<th>Todo items</th>
+
+				</tr>
+				</thead>
+				<tbody repeat.for="todoElement of todoElements" >
+				<tr>
+					<td>
+						<i click.delegate="showCategories(todoElement)" class="glyphicon" class.bind="todoElement.showCategories ? 'glyphicon-chevron-down': 'glyphicon-chevron-right'"></i>
+						${todoElement.body}
+					</td>
+					<td>
+					<td><i style="cursor: pointer;" class="fa fa-times" aria-hidden="true"
+								 click.delegate="removeTodo(todoElement.id)"></i></td>
+					</td>
+				</tr>
+				<tr if.bind="todoElement.showCategories" repeat.for="category of todoElement.categories">
+					<td>${category.categoryName}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</template>

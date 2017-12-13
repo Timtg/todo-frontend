@@ -13,6 +13,10 @@ export class Welcome {
 
 	async activate() {
 		// ensure fetch is polyfilled before we create the http client
+		this.reloadTodoList();
+	}
+
+	async reloadTodoList(){
 		await fetch;
 		const http = this.http = this.getHttpClient();
 
@@ -24,7 +28,27 @@ export class Welcome {
 
 		const response = await http.fetch("");
 		this.todoElements = await response.json();
-		console.log(this.todoElements);
+	}
+
+	showCategories(todoElement){
+		todoElement.showCategories = !todoElement.showCategories;
+	}
+
+	async removeTodo(todoElementId){
+
+		const http = this.http = this.getHttpClient();
+
+		http.configure(config => {
+			config
+				.useStandardConfiguration()
+				.withBaseUrl("http://localhost:8081/api/todo");
+		});
+
+		await http.fetch(`/${todoElementId}`, {
+			method: 'put'
+		});
+
+		this.reloadTodoList();
 	}
 
 }
