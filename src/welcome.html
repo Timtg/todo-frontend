@@ -1,0 +1,17 @@
+<template>
+	<table class="table table-hover pf-fixed-table">
+		<thead>
+		<tr>
+			<th >Added</th>
+
+		</tr>
+		</thead>
+		<tbody>
+		<tr repeat.for="todoElement of todoElements">
+			<td>
+				${todoElement.body}
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</template>

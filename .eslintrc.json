@@ -1,0 +1,24 @@
+{
+  "extends": "./node_modules/aurelia-tools/.eslintrc.json",
+  "rules": {
+    // best practice rules
+		"curly": ["warn", "all"],
+		"default-case": "warn",
+		"eqeqeq": "warn",
+		"guard-for-in": "error",
+		"no-alert": "error",
+		"no-eval": "error",
+		"no-multi-spaces": "warn",
+		"no-script-url": "error",
+		"radix": "warn",
+		// stylistic rules
+		"array-bracket-spacing": ["warn", "never"],
+		"brace-style": "warn",
+		"comma-dangle": "error",
+		"comma-spacing": "warn",
+		"comma-style": "warn",
+		"indent": ["warn", "tab"],
+		"semi": ["error", "always"],
+		"quotes": ["warn", "double"]
+  }
+}
