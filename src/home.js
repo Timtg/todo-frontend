@@ -1,11 +1,12 @@
-import {inject, Lazy} from "aurelia-framework";
-import {HttpClient} from "aurelia-fetch-client";
+import {inject, Lazy, bindable} from "aurelia-framework";
+import {HttpClient, json} from "aurelia-fetch-client";
 
 const fetch = !self.fetch ? System.import("isomorphic-fetch") : Promise.resolve(self.fetch);
 
 @inject(Lazy.of(HttpClient))
 export class Welcome {
-	todoElements =  [];
+	todoElements = [];
+	@bindable newTodoBody;
 
 	constructor(getHttpClient) {
 		this.getHttpClient = getHttpClient;
@@ -16,7 +17,7 @@ export class Welcome {
 		this.reloadTodoList();
 	}
 
-	async reloadTodoList(){
+	async reloadTodoList() {
 		await fetch;
 		const http = this.http = this.getHttpClient();
 
@@ -30,12 +31,11 @@ export class Welcome {
 		this.todoElements = await response.json();
 	}
 
-	showCategories(todoElement){
+	showCategories(todoElement) {
 		todoElement.showCategories = !todoElement.showCategories;
 	}
 
-	async removeTodo(todoElementId){
-
+	async removeTodo(todoElementId) {
 		const http = this.http = this.getHttpClient();
 
 		http.configure(config => {
@@ -45,9 +45,33 @@ export class Welcome {
 		});
 
 		await http.fetch(`/${todoElementId}`, {
-			method: 'put'
+			method: "put"
 		});
 
+		this.reloadTodoList();
+	}
+
+	async addNewTodoElement() {
+		const http = this.http = this.getHttpClient();
+
+		http.configure(config => {
+			config
+				.useStandardConfiguration()
+				.withBaseUrl("http://localhost:8081/api/todo");
+		});
+
+		const todoElement = {
+			body: this.newTodoBody
+		};
+
+		if (this.newTodoBody !== "") {
+			await http.fetch("", {
+				method: "post",
+				body: json(todoElement)
+			});
+		}
+
+		this.newTodoBody = "";
 		this.reloadTodoList();
 	}
 
